@@ -1,0 +1,21 @@
+$container-width: 1200px;
+$container-height: 600px;
+.Container{
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    grid-template-rows: repeat(8,12.5%);
+    width: $container-width;
+    height: $container-height;
+}
+.select{
+    grid-column-start: span 1;
+    grid-row-start: span 1;
+}
+.input{
+    grid-column-start: span 8;
+    grid-row-start: span 2;
+}
+.preview{
+    grid-column-start: span 8;
+    grid-row-start: span 4;
+}

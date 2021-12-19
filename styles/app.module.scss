@@ -1,0 +1,10 @@
+.appContainer{
+}
+.pageCluster{
+    display: flex;
+    flex-flow: row;
+    flex-shrink: 0;
+}
+.pageCluster:nth-child(1){
+    width: 100px;
+}

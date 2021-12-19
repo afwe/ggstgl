@@ -1,0 +1,46 @@
+$width: 60px;
+$height: 60px;
+$border: 3px;
+$name-size: 20px;
+$img-size: 80px;
+$before-height: 60px;
+$before-width: 60px;
+.backGround{
+    width: $width;
+    height: $height;
+    box-shadow:4px 2px 4px 2px grey;
+    rotate: 45deg;
+    >div{
+        overflow: hidden;
+        position:absolute;    
+        border: $border solid black;
+        border-bottom: $border solid red; 
+        border-right: $border solid red; 
+        border-radius: $border;
+        height: $height;
+        width: $width;
+    }
+    >div img{ 
+        position:absolute;
+        height: $img-size;
+        width: $img-size;
+        top: $height / 2 - $img-size / 2;
+        left: $width / 2 - $img-size / 2;
+        rotate: -45deg;
+    }
+}
+.backGround::before{
+    content:"";
+    position:absolute;
+    z-index: 1001;
+    background:url("/gear2.png") no-repeat;
+    background-size: 100% 100%;
+    top: $height - $before-height/2;
+    left: - $before-width / 5;
+    height: $before-height;
+    width: $before-width;
+    rotate: -15deg;
+}
+.backGround::hover{
+    box-shadow: 10px 10px 5px #888888;
+}

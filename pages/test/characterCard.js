@@ -5,7 +5,6 @@ import { message } from 'antd';
 import { useEffect } from 'react';
 export default function CharacterCard(props){
     const { characterId } = props;
-    console.log(characterId);
     let response;
     useEffect(()=>[
         getCharacterById({id:characterId})

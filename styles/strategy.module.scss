@@ -1,0 +1,60 @@
+$mainContainer-maxWidth: 1600px;
+$mainContainer-width: 1440px;
+$character-card-margin-top: 30px;
+$character-card-margin-left: 40px;
+.Container{
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    grid-template-rows: repeat(8, 200px);
+    grid-auto-rows: calc(200px); 
+    justify-items: space-between;
+    align-items: space-between;
+    width: $mainContainer-width;
+    max-width: $mainContainer-maxWidth;
+}
+.character{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: span 2;
+    >div{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+.opponent{
+    grid-column-start: 7;
+    grid-column-end: 9;
+    grid-row-start: span 2;
+    >div{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+.opponentList{
+    grid-column-start: 3;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    >div{
+        margin-left: $character-card-margin-left;
+        margin-top: $character-card-margin-top;
+    }
+}
+.strategyCard{
+    grid-column-start: span 8;
+    grid-row-start: span 1;
+
+}
+.cardComponent{
+    width: 100%;
+    height: 100%;
+}
+.img{
+    height:100%;
+    width:100%;
+}

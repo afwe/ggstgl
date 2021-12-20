@@ -4,10 +4,12 @@ import Markdown from '../../component/markdown';
 import style from '../../styles/characterinfo.module.scss';
 import ComponentCard from '../../component/componentCard';
 import LazyLoad from 'react-lazyload';
+import Router from 'next/router'
 export default class Characterinfo extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            characterId: Router.query.id,
             characterInfo: [],
             characterNeutral: '# 这是标题\n' +
             ' <http://localhost:8880/1.png> [` M `]`RGBA(0,255,0,0.3)` arkdown + E [ **ditor** ] = **Mditor**  \n' +
@@ -93,11 +95,16 @@ export default class Characterinfo extends React.Component{
             ]
         }
     }
+    linkTo = (id) => {
+        Router.push({pathname: '/opponent',query: {
+          id: id
+        }})
+    }
     render(){
-        const { characterInfo, componentsList, good, bad, characterNeutral} = this.state;
+        const { characterId, characterInfo, componentsList, good, bad, characterNeutral} = this.state;
         return(
             <div className={style.container}>
-                <Card className={style.characterNeutral}>
+                <Card className={style.characterNeutral} onClick={()=>this.linkTo(characterId)}>
                     <Markdown>
                         {characterNeutral}
                     </Markdown>
@@ -129,11 +136,11 @@ export default class Characterinfo extends React.Component{
                 {
                     componentsList.map((item,index)=>{
                         return (
-                            <LazyLoad className={style.componentCard}>
-                            <ComponentCard 
-                                key={`component-${index}`} 
-                                className={style.cardComponent} 
-                            />
+                            <LazyLoad className={style.componentCard} key={`component-${index}`}>
+                                <ComponentCard 
+                                    componentId={1}
+                                    className={style.cardComponent} 
+                                />
                             </LazyLoad>
                         )
                     })

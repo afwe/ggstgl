@@ -1,18 +1,18 @@
 import React,{ useEffect, useState } from 'react';
 import { Card, Skeleton} from 'antd';
-import { getComponentById } from '../fetch/component'; 
+import { getStrategyById } from '../fetch/strategy'; 
 import Markdown from './markdown';
 
-const ComponentCard = function(props){
-    const { componentId, className } = props;
+const StrategyCard = function(props){
+    const { strategyId, className } = props;
     const [ content, setContent ] = useState('');
     const [ loading, setLoading ] = useState(true);
     useEffect(()=>{
-        getComponentData();
+        getStrategyData();
     }, [])  
-    const getComponentData = async function(){
-        let response = await getComponentById({componentId: componentId});
-        setContent(response.data.componentDescription);
+    const getStrategyData = async function(){
+        let response = await getStrategyById({strategyId: strategyId});
+        setContent(response.data.strategyDescription);
         setLoading(false);
     }
     return (
@@ -26,4 +26,4 @@ const ComponentCard = function(props){
     )
 }
 
-export default React.memo(ComponentCard);
+export default React.memo(StrategyCard);

@@ -5,6 +5,7 @@ import { getAllCharacter } from '../fetch/character';
 import CharacterCard from '../component/characterCard';
 import 'antd/dist/antd.css';
 import Markdown from '../component/markdown';
+import Router from 'next/router'
 const { Meta } = Card;
 export default class Home extends React.Component {
   constructor(props) {
@@ -30,12 +31,16 @@ export default class Home extends React.Component {
           characterList: response.data
         });
       } else{
-        console.log(response);
         message.error('角色列表请求失败');
       }
     }).catch(err=>{
       message.error('err角色列表请求失败');
     })
+  }
+  linkTo = (id) => {
+    Router.push({pathname: '/characterInfo',query: {
+      id: id
+    }})
   }
   render(){
     return (
@@ -56,7 +61,7 @@ export default class Home extends React.Component {
             {
               this.state.characterList.map((item,index)=>{
                 return(
-                  <CharacterCard {...item} key={index}></CharacterCard>
+                  <CharacterCard {...item} key={index} onClick={()=>this.linkTo(item.characterId)}></CharacterCard>
                 )
               })
             }

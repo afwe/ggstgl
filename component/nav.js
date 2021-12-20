@@ -6,7 +6,6 @@ export default class Navbar extends React.Component{
         current: 'main',
     };
     handleClick = e => {
-        console.log('click', e);
         this.setState({ current: e.key });
     }
     render(){

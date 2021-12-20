@@ -16,7 +16,6 @@ const Manage = function(){
         getCharacterList()
     }, [])
     const changeText = (e)=>{
-        console.log(e.target.value);
         setComponentText(e.target.value);
     }
     const getCharacterList = async function(){

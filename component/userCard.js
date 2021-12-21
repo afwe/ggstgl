@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, Avatar } from 'antd';
+import { Card, Avatar, message } from 'antd';
 const { Meta } = Card;
+import { login, regester, checkLogin, checkRole, register } from '../fetch/user';
+import { handleErrRes } from '../util/handleErrRes';
 export default class Usercard extends React.Component{
     constructor(props){
         super(props);
@@ -10,6 +12,23 @@ export default class Usercard extends React.Component{
             name: '未登录'
         }
     }
+    doLogin = async function(){
+        let response = await login({userId: this.userId, userPwd: this.userPwd});
+        if(response.code==200){
+
+        } else{
+            handleErrRes(response);
+        }
+    }
+    doRegister = async function(){
+        let response = await register({userId: this.userId, userPwd: this.userPwd});
+        if(response.code == 200){
+
+        } else{
+            handleErrRes(response);
+        }
+    }
+
     render(){
         const { name, sign, avatar } = this.state;
         return (

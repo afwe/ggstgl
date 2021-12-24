@@ -6,6 +6,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 import { getAllCharacter } from '../../fetch/character';
 import { updateStrategy } from '../../fetch/strategy';
+import { updateCommit } from '../../fetch/commit';
 const Manage = function(){
     const [strategyText, setStrategyText] = useState('');
     const [characterId, setCharacterId] = useState();
@@ -26,10 +27,16 @@ const Manage = function(){
         setOpponentId(response.data[0].characterId);
     }
     const uploadStrategy = async function(){
-        let response = await updateStrategy({
+        /*let response = await updateStrategy({
             characterId: characterId,
             opponentId: opponentId,
             strategyDescription: strategyText
+        });*/
+        let response = await updateCommit({
+            characterId: characterId,
+            opponentId: opponentId,
+            strategyDescription: strategyText,
+            type: 1
         });
         if(response.code==200){
             message.success('发布成功');

@@ -11,7 +11,7 @@ export default async function theFetch(props){
     }
     url = backendPort[recv] + url;
     let requestConfig = {
-        credentials: "include",
+        credentials: 'include',
         method: method,
         headers: header,
         mode: "cors",

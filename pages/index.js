@@ -1,7 +1,7 @@
 import styles from '../styles/Global.module.scss'
 import {message, Card, Divider} from 'antd';  // 加载 JS
 import React from 'react';
-import { getAllCharacter } from '../fetch/character';
+import { updateChracter, getAllCharacter } from '../fetch/character';
 import CharacterCard from '../component/characterCard';
 import 'antd/dist/antd.css';
 import Markdown from '../component/markdown';
@@ -31,6 +31,7 @@ export default class Home extends React.Component {
           characterList: response.data
         });
       } else{
+        console.log(response);
         message.error('角色列表请求失败');
       }
     }).catch(err=>{
@@ -61,7 +62,9 @@ export default class Home extends React.Component {
             {
               this.state.characterList.map((item,index)=>{
                 return(
-                  <CharacterCard {...item} key={index} onClick={()=>this.linkTo(item.characterId)}></CharacterCard>
+                  <CharacterCard {...item} key={index} onClick={()=>    Router.push({pathname: '/characterInfo',query: {
+                    id: item.characterId
+                  }})}></CharacterCard>
                 )
               })
             }

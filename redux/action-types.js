@@ -1,2 +1,0 @@
-export const GET_CHARACTER_LIST ="GET_CHARACTER_LIST";
-export const GET_USER_INFO="GET_USER_INFO";

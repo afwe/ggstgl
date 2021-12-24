@@ -6,6 +6,8 @@ const { TextArea } = Input;
 const { Option } = Select;
 import { getAllCharacter } from '../../fetch/character';
 import { updateComponent } from '../../fetch/component';
+import { updateCommit } from '../../fetch/commit';
+import { handleErrRes } from '../../util/handleErrRes';
 const Manage = function(){
     const [componentText, setComponentText] = useState('');
     const {CharacterId, setCharacterId} = useState(0);
@@ -25,14 +27,19 @@ const Manage = function(){
         setSelect(response.data[0].characterId)
     }
     const uploadComponent = async function(){
-        let response = await updateComponent({
+        /*let response = await updateComponent({
             characterId: select,
             componentDescription: componentText
-        });
+        });*/
+        let response = await updateCommit({
+            characterId: select,
+            componentDescription: componentText,
+            type: 0
+        })
         if(response.code==200){
             message.success('发布成功');
         }else{
-            message.error('发布失败');
+            handleErrRes(response);
         }
     }
     return(

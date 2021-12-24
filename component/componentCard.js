@@ -11,7 +11,7 @@ const ComponentCard = function(props){
         getComponentData();
     }, [])  
     const getComponentData = async function(){
-        let response = await getComponentById({componentId: componentId});
+        let response = await getComponentById({componentId: 1});
         setContent(response.data.componentDescription);
         setLoading(false);
     }

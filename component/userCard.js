@@ -1,50 +1,79 @@
-import React from 'react';
-import { Card, Avatar, message } from 'antd';
+import React,{useState, useEffect} from 'react';
+import { Card, Avatar, Modal } from 'antd';
 const { Meta } = Card;
 import { login, regester, checkLogin, checkRole, register } from '../fetch/user';
 import { handleErrRes } from '../util/handleErrRes';
-export default class Usercard extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-            sign: '未登录',
-            name: '未登录'
-        }
-    }
-    doLogin = async function(){
-        let response = await login({userId: this.userId, userPwd: this.userPwd});
-        if(response.code==200){
+import { MehFilled, HomeFilled, FrownFilled } from '@ant-design/icons';
+import LoginPanel from './loginPanel';
+import { connect } from 'react-redux';
+import { setuserid } from '../redux/actions/user';
+import next from 'next';
 
-        } else{
-            handleErrRes(response);
+const Usercard=(props)=>{
+    const {userid, setuserid} = props;
+    const [userId, setUserId] = useState(userid);
+    const [avatar, setAvatar] = useState('https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png');
+    const [isSigned, setIsSigned] = useState(false);
+    const [callLogin, setCallLogin] = useState(false);
+    const name='未登录';
+    useEffect(()=>{
+        if(userid=='未登录'){
+            checkLogin().then(response=>{
+                if(response.code==200){
+                  setuserid(response.userId);
+                } else{
+                  handleErrRes(response);
+                }
+            })
+        }else{
+            setUserId(userid);
         }
+        
+    },[userid]);
+    const hideLogin = ()=>{
+        setCallLogin(false);
     }
-    doRegister = async function(){
-        let response = await register({userId: this.userId, userPwd: this.userPwd});
-        if(response.code == 200){
-
-        } else{
-            handleErrRes(response);
-        }
+    const showLogin = ()=>{
+        console.log(userId);
+        setCallLogin(true);
     }
-
-    render(){
-        const { name, sign, avatar } = this.state;
-        return (
+    return (
+        <React.Fragment>
             <Card
-                actions={[
-
-                ]}
+                actions={
+                    !isSigned? [
+                        <MehFilled key="login" onClick={()=>showLogin()}/>,
+                    ] : [
+                        <HomeFilled  key="home" />,
+                        <FrownFilled  key="logout" />
+                    ]
+                }
                 style={{width:500, height: 500}}
-                {...this.props}
+                {...props}
                 >
                     <Meta
                         avatar={<Avatar src={avatar}/>}
-                        title={name}
-                        description={sign}
+                        title={userId}
+                        description={'hh'}
                     />
             </Card>
-        )
-    }
+            <Modal
+                centered
+                visible={callLogin}
+                onOk={() => hideLogin()}
+                onCancel={() => hideLogin()}
+                width={500}
+            >
+                    <LoginPanel />
+            </Modal>
+        </React.Fragment>
+    )
+    
 }
+const mapStateToProps = state=>{
+    return {userid:state.user.userId};
+}
+const mapDispathToProps = {
+    setuserid
+}
+export default connect(mapStateToProps, mapDispathToProps)(React.memo(Usercard));
